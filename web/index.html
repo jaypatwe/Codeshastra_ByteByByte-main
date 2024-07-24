@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--
+      If you are serving your web app in a path other than the root, change the
+      href value below to reflect the base path you are serving from.
+
+      The path provided below has to start and end with a slash "/" in order for
+      it to work correctly.
+
+      For more details:
+      * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+      This is a placeholder for base href that will be replaced by the value of
+      the `--base-href` argument provided to `flutter build`.
+    -->
+    <base href="$FLUTTER_BASE_HREF">
+
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="description" content="A new Flutter project.">
+
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="flareline">
+    <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png"/>
+
+    <title>flareline</title>
+    <link rel="manifest" href="manifest.json">
+
+    <style>
+        .preloader {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          background: white;
+          z-index: 9999;
+          transition: opacity .65s;
+          display: flex;
+        }
+
+        .cs-loader {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%
+        }
+
+        .cs-loader-inner {
+          transform: translateY(-50%) translateX(-50%);
+          top: 50%;
+          left: 50%;
+          position: absolute;
+          text-align: center
+        }
+
+    </style>
+    <script>
+        // The value below is injected by flutter build, do not touch.
+        const serviceWorkerVersion = null;
+    </script>
+    <!-- This script adds the flutter initialization JS code -->
+    <script src="flutter.js" defer></script>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
+            type="module"></script>
+</head>
+<body>
+
+<div id="app_splash">
+    <div class="preloader">
+        <div class="cs-loader">
+            <div class="cs-loader-inner">
+
+                <dotlottie-player src="https://lottie.host/3fba3880-2499-45db-819b-eef34a915721/q9LFeAwczy.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var isLoadSuccess;
+    var hasTimeOut;
+    setTimeout(function(){
+        if(isLoadSuccess){
+            document.getElementById("app_splash")?.remove();
+        }
+        hasTimeOut=true;
+    },3000);
+    window.addEventListener('load', function(ev) {
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: async function(engineInitializer) {
+
+              engineInitializer.initializeEngine().then(function(appRunner) {
+                if(hasTimeOut){
+                    document.getElementById("app_splash")?.remove();
+                }
+                appRunner.runApp();
+                isLoadSuccess=true;
+              });
+        }
+      });
+    });
+</script>
+</body>
+</html>
